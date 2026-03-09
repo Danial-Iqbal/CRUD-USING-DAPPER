@@ -12,9 +12,17 @@ namespace CRUD.WebApi.Repositories
         {
             _dbContext = dbContext;
         }
-        public Task<int> CreateAsync(Product product)
+        public async Task<int> CreateAsync(Product product)
         {
-            throw new NotImplementedException();
+            var query = @"INSERT INTO PRODUCTS (Name, Description, Price)
+                          VALUES (@Name, @Description, @Price);
+                          SELECT CAST(SCOPE_IDENTITY() as int)";
+
+            using var connection = _dbContext.CreateConnection();
+
+            var id = await connection.ExecuteScalarAsync<int>(query, product);
+
+            return id;
         }
 
         public Task<bool> Delete(int id)

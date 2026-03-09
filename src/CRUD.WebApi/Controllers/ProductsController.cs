@@ -1,4 +1,5 @@
-﻿using CRUD.WebApi.Repositories;
+﻿using CRUD.WebApi.Models;
+using CRUD.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -28,7 +29,23 @@ namespace CRUD.WebApi.Controllers
         {
             var product = await _productRepository.GetByIdAsync(id);
 
+            if (product is null)
+                return NotFound(new { Message = $"Product with Id {id} not found." });
+
             return Ok(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Product product)
+        {
+            if (product is null)
+                return BadRequest(new { Message = $"Product Date is required" });
+
+            var createdId = await _productRepository.CreateAsync(product);
+
+            var result = await _productRepository.GetByIdAsync(createdId);
+
+            return CreatedAtAction(nameof(Create), new { id = createdId }, result);
         }
     }
 }
