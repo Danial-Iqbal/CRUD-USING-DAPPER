@@ -22,5 +22,13 @@ namespace CRUD.WebApi.Controllers
 
             return Ok(products);
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+
+            return Ok(product);
+        }
     }
 }
