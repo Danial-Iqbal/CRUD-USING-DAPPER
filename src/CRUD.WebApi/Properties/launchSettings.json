@@ -17,7 +17,7 @@
       "applicationUrl": "http://localhost:5214",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionStrings:DefaultConnection": ""
+        "ConnectionStrings:DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=CRUD;Trusted_Connection=true;MultipleActiveResultSets=true"
       }
     },
     "https": {
@@ -28,7 +28,7 @@
       "applicationUrl": "https://localhost:7264;http://localhost:5214",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionStrings:DefaultConnection": ""
+        "ConnectionStrings:DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=CRUD;Trusted_Connection=true;MultipleActiveResultSets=true"
       }
     },
     "IIS Express": {
@@ -37,7 +37,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionStrings:DefaultConnection": ""
+        "ConnectionStrings:DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=CRUD;Trusted_Connection=true;MultipleActiveResultSets=true"
       }
     }
   }
