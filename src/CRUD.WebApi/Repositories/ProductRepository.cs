@@ -22,7 +22,7 @@ namespace CRUD.WebApi.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
             var query = @"SELECT Id,
                                  Name,
@@ -34,14 +34,25 @@ namespace CRUD.WebApi.Repositories
 
             using var connection = _dbContext.CreateConnection();
 
-            var products = connection.QueryAsync<Product>(query);
+            var products = await connection.QueryAsync<Product>(query);
 
             return products;
         }
 
-        public Task<Product> GetByIdAsync(int id)
+        public async Task<Product> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var query = @"SELECT Id,
+                                 Name,
+                                 Description,
+                                 Price
+                          FROM Products
+                          WHERE Id = @Id";
+
+            using var connection = _dbContext.CreateConnection();
+
+            var product = await connection.QueryFirstOrDefaultAsync<Product>(query, new { Id = id });
+
+            return product;
         }
 
         public Task<bool> UpdateAsync(Product product)
