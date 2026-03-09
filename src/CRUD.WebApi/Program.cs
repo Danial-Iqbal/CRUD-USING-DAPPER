@@ -1,7 +1,7 @@
 
 using CRUD.WebApi.Data;
 using CRUD.WebApi.Repositories;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace CRUD.WebApi
 {
