@@ -1,6 +1,7 @@
 
 using CRUD.WebApi.Data;
 using CRUD.WebApi.Repositories;
+using Microsoft.OpenApi.Models;
 
 namespace CRUD.WebApi
 {
@@ -15,7 +16,16 @@ namespace CRUD.WebApi
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "CRUD Web API",
+                        Version = "v1",
+                        Description = "A simple CRUD Web API using Dapper and SQL Server"
+                    });
+            });
 
             // Dependency Injection
             #region Dependency Injection
@@ -31,7 +41,10 @@ namespace CRUD.WebApi
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRUD Web API v1");
+                });
             }
 
             app.UseHttpsRedirection();
