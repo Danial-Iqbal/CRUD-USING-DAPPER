@@ -1,4 +1,4 @@
-# CRUD with Dapper using ASP.NET Core 8
+﻿# CRUD with Dapper using ASP.NET Core 8
 
 This project is a simple example of building a CRUD Web API using ASP.NET Core 8, Dapper, and SQL Server.
 
@@ -32,3 +32,15 @@ Run the SQL script from the `SQL` folder to create the required table.
 3. Run the SQL script
 4. Start the project
 5. Test APIs using Swagger
+
+## Project Structure
+
+CRUD.WebApi
+│
+├── Controllers
+├── Data
+├── Models
+├── Repositories
+├── SQL
+├── Program.cs
+└── appsettings.json
