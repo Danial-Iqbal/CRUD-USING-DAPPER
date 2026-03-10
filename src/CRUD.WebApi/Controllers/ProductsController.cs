@@ -59,7 +59,7 @@ namespace CRUD.WebApi.Controllers
             var result = await _productRepository.DeleteAsync(id);
 
             if (!result)
-                return StatusCode(500, new { Message = " An error occured while deleting the product." })
+                return StatusCode(500, new { Message = " An error occured while deleting the product." });
 
             return Ok(new { Message = "Product deleted successfully" });
         }
