@@ -47,5 +47,21 @@ namespace CRUD.WebApi.Controllers
 
             return CreatedAtAction(nameof(Create), new { id = createdId }, result);
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+
+            if (product is null)
+                return NotFound(new { Message = $"Product with Id {id} not found." });
+
+            var result = await _productRepository.DeleteAsync(id);
+
+            if (!result)
+                return StatusCode(500, new { Message = " An error occured while deleting the product." })
+
+            return Ok(new { Message = "Product deleted successfully" });
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace CRUD.WebApi.Repositories
         {
             _dbContext = dbContext;
         }
+
         public async Task<int> CreateAsync(Product product)
         {
             var query = @"INSERT INTO PRODUCTS (Name, Description, Price)
@@ -25,9 +26,15 @@ namespace CRUD.WebApi.Repositories
             return id;
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var query = @"DELETE FROM PRODUCTS WHERE Id = @Id";
+
+            using var connection = _dbContext.CreateConnection();
+
+            var rowsAffected = await connection.ExecuteAsync(query, new { Id = id });
+
+            return rowsAffected > 0;
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync()

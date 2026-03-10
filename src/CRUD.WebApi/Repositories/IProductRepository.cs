@@ -12,7 +12,7 @@ namespace CRUD.WebApi.Repositories
 
         Task<bool> UpdateAsync(Product product);
 
-        Task<bool> Delete(int id);
+        Task<bool> DeleteAsync(int id);
 
     }
 }
