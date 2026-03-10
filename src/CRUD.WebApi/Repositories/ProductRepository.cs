@@ -70,9 +70,27 @@ namespace CRUD.WebApi.Repositories
             return product;
         }
 
-        public Task<bool> UpdateAsync(Product product)
+        public async Task<bool> UpdateAsync(int id, Product product)
         {
-            throw new NotImplementedException();
+            var query = @"UPDATE Products
+                          SET Name = @Name,
+                              Description = @Description,
+                              Price = @Price
+                          WHERE Id = @Id
+                         ";
+
+
+            using var connection = _dbContext.CreateConnection();
+
+            var rowsAfftected = await connection.ExecuteAsync(query, new
+            {
+                Id = id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price
+            });
+
+            return rowsAfftected > 0;
         }
     }
 }

@@ -63,5 +63,24 @@ namespace CRUD.WebApi.Controllers
 
             return Ok(new { Message = "Product deleted successfully" });
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, Product product)
+        {
+            if (product is null)
+                return BadRequest(new { Message = "Product data is required." });
+
+            var existingProduct = await _productRepository.GetByIdAsync(id);
+
+            if (existingProduct is null)
+                return NotFound(new { Message = $"Product with Id {id} not found." });
+
+            var result = await _productRepository.UpdateAsync(id, product);
+
+            if (!result)
+                return StatusCode(500, new { Message = "An error occured while updating the product." });
+
+            return Ok(new { Message = "Product Updated Successfully." });
+        }
     }
 }
