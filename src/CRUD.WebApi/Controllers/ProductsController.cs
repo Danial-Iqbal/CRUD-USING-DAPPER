@@ -48,22 +48,6 @@ namespace CRUD.WebApi.Controllers
             return CreatedAtAction(nameof(Create), new { id = createdId }, result);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var product = await _productRepository.GetByIdAsync(id);
-
-            if (product is null)
-                return NotFound(new { Message = $"Product with Id {id} not found." });
-
-            var result = await _productRepository.DeleteAsync(id);
-
-            if (!result)
-                return StatusCode(500, new { Message = " An error occured while deleting the product." });
-
-            return Ok(new { Message = "Product deleted successfully" });
-        }
-
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, Product product)
         {
@@ -81,6 +65,22 @@ namespace CRUD.WebApi.Controllers
                 return StatusCode(500, new { Message = "An error occured while updating the product." });
 
             return Ok(new { Message = "Product Updated Successfully." });
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+
+            if (product is null)
+                return NotFound(new { Message = $"Product with Id {id} not found." });
+
+            var result = await _productRepository.DeleteAsync(id);
+
+            if (!result)
+                return StatusCode(500, new { Message = " An error occured while deleting the product." });
+
+            return Ok(new { Message = "Product deleted successfully" });
         }
     }
 }
